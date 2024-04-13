@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-e5*(ycks=)y@se$$=misb-7vrrv$i0+(@jme3d)3)zyhv*2*1c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']  # Allow all hosts (for development purposes)
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app', 'raoshah.pythonanywhere.com']  # Allow all hosts (for development purposes)
 
 
 
@@ -135,4 +135,4 @@ REST_FRAMEWORK = {
 
 TOKEN_EXPIRATION = timedelta(days=30)
 
-CORS_ALLOWED_ORIGINS = ['http://192.168.43.147:3000','http://localhost:3000','http://127.0.0.1:3000']
+CORS_ALLOWED_ORIGINS = ['http://192.168.43.147:3000','http://localhost:3000','http://127.0.0.1:3000', 'raoshah.pythonanywhere.com']
