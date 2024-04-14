@@ -10,8 +10,8 @@ class CustomUserManager(BaseUserManager):
         user = self.model(email=email, username=username, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)  # Save the user to generate an id
-        group = Group.objects.get(name='test')  # Replace 'test' with the actual group name
-        user.groups.add(group)  # Add user to group after saving
+        # group = Group.objects.get(name='test')  # Replace 'test' with the actual group name
+        # user.groups.add(group)  # Add user to group after saving
         return user
 
     def create_superuser(self, email, username, password=None, **extra_fields):
