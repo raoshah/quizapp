@@ -135,4 +135,5 @@ REST_FRAMEWORK = {
 
 TOKEN_EXPIRATION = timedelta(days=30)
 
-CORS_ALLOWED_ORIGINS = ['http://192.168.43.147:3000','http://localhost:3000','http://127.0.0.1:3000', 'http://raoshah.pythonanywhere.com']
+CORS_ALLOWED_ORIGINS = ['*']
+
