@@ -135,5 +135,10 @@ REST_FRAMEWORK = {
 
 TOKEN_EXPIRATION = timedelta(days=30)
 
-CORS_ALLOWED_ORIGINS = ['*']
+CORS_ALLOWED_ORIGINS = [
+    "http://example.com",
+    "https://example.com",
+    "http://localhost:8000",
+    "https://localhost:8000",
+]
 
