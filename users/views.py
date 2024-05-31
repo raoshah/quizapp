@@ -5,8 +5,11 @@ from .serializers import UserSerializer , PostSerializer , QuizSerializer, Categ
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status, generics
+from django.http import JsonResponse
+from rest_framework.decorators import api_view, permission_classes
 from .models import Post, Question, QuizCategory, CustomUser
 import json as js
+from .backfn import back
 
 
 class UserCreate(APIView):
@@ -57,4 +60,24 @@ class UserData(ListCreateAPIView):
     def get_queryset(self):
         user = self.request.user
         return CustomUser.objects.filter(id=user.id)
+    
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def backtest(request):
+    try:
+        data = request.data
+        list = [[int(item) for item in sublist] for sublist in data]
+        result_data = back(list)
+        manipulated_data = {
+            "data": result_data,
+        }
+        
+        return JsonResponse(manipulated_data, status=status.HTTP_200_OK)
+    except js.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON data."}, status=status.HTTP_400_BAD_REQUEST)
+    except Exception as e:
+        return JsonResponse({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+
 

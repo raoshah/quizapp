@@ -35,9 +35,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -135,10 +135,5 @@ REST_FRAMEWORK = {
 
 TOKEN_EXPIRATION = timedelta(days=30)
 
-CORS_ALLOWED_ORIGINS = [
-    "http://example.com",
-    "https://example.com",
-    "http://localhost:8000",
-    "https://localhost:8000",
-]
+CORS_ALLOW_ALL_ORIGINS = True
 
