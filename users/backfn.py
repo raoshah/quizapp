@@ -1,5 +1,6 @@
 from datetime import datetime
 import sqlite3, json
+from .models import Backtest
 
 
 
@@ -62,4 +63,27 @@ def back(list, stoploss, profitbook):
                     entry = ""
                 else:
                     continue
+    
+    total_profit_loss = 0.0
+
+
+    for ent in result_list:
+        if 'Book Profit' in ent:
+            profit_loss_str = ent.split('Book Profit ')[1]
+            profit_loss = float(profit_loss_str)
+        elif 'Book Loss' in ent:
+            profit_loss_str = ent.split('Book Loss ')[1]
+            profit_loss = float(profit_loss_str)
+        elif 'Market Close' in ent:
+            profit_loss_str = ent.split('Market Close ')[1]
+            profit_loss = float(profit_loss_str)
+        else:
+            continue
+
+        total_profit_loss += profit_loss
+
+    r = "Total Profit/Loss: {:.2f}".format(total_profit_loss)
+    print(r, list)
+    d = Backtest(strategy=list,result=r)
+    d.save()
     return result_list

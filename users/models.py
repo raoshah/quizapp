@@ -63,3 +63,10 @@ class Question(models.Model):
     c = models.CharField(max_length=1000)
     d = models.CharField(max_length=1000)
     answer = models.CharField(max_length=4,choices=ANSWER_CHOICES,default="A")
+
+
+class Backtest(models.Model):
+    strategy = models.CharField(max_length=240)
+    result = models.CharField(max_length=240)
+    def __str__(self):
+        return self.result
