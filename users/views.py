@@ -67,8 +67,13 @@ class UserData(ListCreateAPIView):
 def backtest(request):
     try:
         data = request.data
-        list = [[int(item) for item in sublist] for sublist in data]
-        result_data = back(list)
+        
+        stoploss = int(data["stoploss"][0])
+        profitbook = int(data["stoploss"][1])
+        
+        list = [[int(item) for item in sublist] for sublist in data["data"]]
+        result_data = back(list, profitbook, stoploss)
+
         manipulated_data = {
             "data": result_data,
         }

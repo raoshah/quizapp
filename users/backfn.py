@@ -1,3 +1,4 @@
+from datetime import datetime
 import sqlite3, json
 
 
@@ -27,7 +28,7 @@ def chek(candle, list):
     else:
         return False
 
-def back(list):
+def back(list, stoploss, profitbook):
     connc = sqlite3.connect('fiveMinCandle.db') 
     cursor = connc.cursor()
     cursor.execute('SELECT * FROM candles')
@@ -39,23 +40,25 @@ def back(list):
         data = json.loads(candle)
         entry = ""
         for candle in data:
+            dt = datetime.fromisoformat(candle[0])
+            time = dt.strftime("%H:%M")
             data_list.append(candle)
             if entry == "":
                 result = chek(data_list, list)
                 if result: 
                     entry = candle[4]
+                    entry_time = time
                 else:
                     continue
             else:
-                if candle[4] >  entry + 20:
-                    
-                    result_list.append(f"Date  : {date} - Entry Price : {entry} -  Exit Price: {candle[4]} - Book Profit {candle[4] - entry}")
+                if candle[4] >  entry + profitbook:
+                    result_list.append(f"Date  : {date} - Entry {entry_time} : Price {entry} -  Exit {time}: Price {candle[4]} - Book Profit {candle[4] - entry}")
                     entry = ""
-                elif candle[4] <  entry - 10:
-                    result_list.append(f"Date  : {date} - Entry Price : {entry} -  Exit Price: {candle[4]} - Book Loss {candle[4] - entry}")
+                elif candle[4] <  entry - stoploss:
+                    result_list.append(f"Date  : {date} - Entry {entry_time} : Price {entry} -  Exit {time}: Price {candle[4]}  - Book Loss {candle[4] - entry}")
                     entry = ""
                 elif len(data_list) > 71:
-                    result_list.append(f"Date  : {date} - Entry Price : {entry} -  Exit Price: {candle[4]} - Market Close {candle[4] - entry}")
+                    result_list.append(f"Date  : {date} - Entry {entry_time} : Price {entry} -  Exit {time}: Price {candle[4]} - Market Close {candle[4] - entry}")
                     entry = ""
                 else:
                     continue
