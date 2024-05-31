@@ -5,12 +5,12 @@ import sqlite3, json
 
 def check_result(cdl , op , candle):
     if op == 101:
-        if cdl < candle:
+        if cdl > candle:
             return True
         else:
             return False
     elif op == 99:
-        if cdl > candle:
+        if cdl < candle:
             return True
         else:
             return False
